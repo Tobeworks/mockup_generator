@@ -6,6 +6,7 @@ const props = defineProps<{
   alt: string
   label: string
   sublabel: string
+  downloadFilename: string
 }>()
 
 const emit = defineEmits<{
@@ -84,7 +85,7 @@ watch(
             <!-- Download -->
             <a
               :href="src"
-              :download="`${alt}.png`"
+              :download="downloadFilename"
               class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
               title="Herunterladen"
             >

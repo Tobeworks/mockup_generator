@@ -18,11 +18,21 @@ export interface ApiResponse {
   error?: string
 }
 
+export function urlToFilenamePrefix(url: string): string {
+  try {
+    const parsed = new URL(url)
+    return parsed.hostname.replace(/^www\./, '').replace(/[^a-zA-Z0-9.-]/g, '_')
+  } catch {
+    return url.replace(/https?:\/\//, '').replace(/[^a-zA-Z0-9.-]/g, '_')
+  }
+}
+
 export function useGeneratorApi() {
   const isLoading = ref(false)
   const error = ref<string | null>(null)
   const result = ref<DeviceImages | null>(null)
   const activeMode = ref<GeneratorMode>('screenshots')
+  const requestedUrl = ref('')
   const elapsedSeconds = ref(0)
 
   let timer: ReturnType<typeof setInterval> | null = null
@@ -65,6 +75,7 @@ export function useGeneratorApi() {
     error.value = null
     result.value = null
     activeMode.value = mode
+    requestedUrl.value = url
 
     startTimer()
 
@@ -144,6 +155,7 @@ export function useGeneratorApi() {
     isLoading.value = false
     error.value = null
     result.value = null
+    requestedUrl.value = ''
     elapsedSeconds.value = 0
   }
 
@@ -152,6 +164,7 @@ export function useGeneratorApi() {
     error,
     result,
     activeMode,
+    requestedUrl,
     elapsedSeconds,
     loadingMessage,
     generate,

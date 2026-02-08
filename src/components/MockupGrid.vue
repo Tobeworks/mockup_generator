@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { DeviceImages, GeneratorMode } from '../composables/useGeneratorApi'
+import { urlToFilenamePrefix } from '../composables/useGeneratorApi'
 import ImageLightbox from './ImageLightbox.vue'
 
 const props = defineProps<{
   images: DeviceImages
   mode: GeneratorMode
+  sourceUrl: string
 }>()
+
+function buildFilename(deviceKey: string): string {
+  const prefix = urlToFilenamePrefix(props.sourceUrl)
+  const type = props.mode === 'screenshots' ? 'screenshot' : 'mockup'
+  return `${prefix}_${type}_${deviceKey}.png`
+}
 
 const loadedImages = ref<Set<string>>(new Set())
 const lightboxIndex = ref<number | null>(null)
@@ -114,7 +122,7 @@ const currentDevice = computed(() => {
             <!-- Download Button -->
             <a
               :href="images[device.key]"
-              :download="`${mode === 'screenshots' ? 'screenshot' : 'mockup'}_${device.key}.png`"
+              :download="buildFilename(device.key)"
               class="rounded-md p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
               title="Herunterladen"
             >
@@ -172,6 +180,7 @@ const currentDevice = computed(() => {
       :alt="`${currentDevice.label} ${mode === 'screenshots' ? 'Screenshot' : 'Mockup'}`"
       :label="currentDevice.label"
       :sublabel="currentDevice.sublabel[mode]"
+      :download-filename="buildFilename(currentDevice.key)"
       @close="closeLightbox"
       @prev="prevImage"
       @next="nextImage"

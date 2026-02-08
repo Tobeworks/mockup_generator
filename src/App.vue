@@ -9,6 +9,7 @@ const {
   error,
   result,
   activeMode,
+  requestedUrl,
   elapsedSeconds,
   loadingMessage,
   generate,
@@ -112,7 +113,7 @@ function handleSubmit(mode: GeneratorMode, url: string, vision: string) {
         enter-to-class="transform translate-y-0 opacity-100"
       >
         <section v-if="result" class="space-y-8">
-          <MockupGrid :images="result" :mode="activeMode" />
+          <MockupGrid :images="result" :mode="activeMode" :source-url="requestedUrl" />
 
           <!-- Back Button -->
           <div class="flex justify-center pt-4">
