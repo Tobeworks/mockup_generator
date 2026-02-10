@@ -5,6 +5,12 @@ const BASE_URL = 'http://localhost:5001/api'
 
 export type GeneratorMode = 'screenshots' | 'mockups'
 
+export interface DeviceDimensions {
+  mobile: { width: number; height: number }
+  tablet: { width: number; height: number }
+  desktop: { width: number; height: number }
+}
+
 export interface DeviceImages {
   mobile: string
   tablet: string
@@ -70,6 +76,7 @@ export function useGeneratorApi() {
     mode: GeneratorMode,
     url: string,
     userInstruction?: string,
+    deviceDimensions?: DeviceDimensions,
   ) {
     isLoading.value = true
     error.value = null
@@ -82,9 +89,17 @@ export function useGeneratorApi() {
     try {
       const endpoint = `${BASE_URL}/${mode}`
 
-      const payload: { url: string; user_instruction?: string } = { url }
+      const payload: { url: string; user_instruction?: string; mobile_width?: number; mobile_height?: number; tablet_width?: number; tablet_height?: number; desktop_width?: number; desktop_height?: number } = { url }
       if (mode === 'mockups' && userInstruction?.trim()) {
         payload.user_instruction = userInstruction.trim()
+      }
+      if (deviceDimensions) {
+        payload.mobile_width = deviceDimensions.mobile.width
+        payload.mobile_height = deviceDimensions.mobile.height
+        payload.tablet_width = deviceDimensions.tablet.width
+        payload.tablet_height = deviceDimensions.tablet.height
+        payload.desktop_width = deviceDimensions.desktop.width
+        payload.desktop_height = deviceDimensions.desktop.height
       }
 
       console.log(`[Generator] ${mode.toUpperCase()} Request →`, endpoint, payload)

@@ -4,11 +4,21 @@ import type { DeviceImages, GeneratorMode } from '../composables/useGeneratorApi
 import { urlToFilenamePrefix } from '../composables/useGeneratorApi'
 import ImageLightbox from './ImageLightbox.vue'
 
+import { useDeviceSettings } from '../composables/useDeviceSettings'
+
+import type { DeviceDimensions } from '../composables/useDeviceSettings'
+
 const props = defineProps<{
   images: DeviceImages
   mode: GeneratorMode
   sourceUrl: string
+  deviceDimensions?: DeviceDimensions
 }>()
+
+const { dimensions: storedDimensions } = useDeviceSettings()
+
+// Use passed dimensions or fall back to stored dimensions
+const dimensions = computed(() => props.deviceDimensions || storedDimensions.value)
 
 function buildFilename(deviceKey: string): string {
   const prefix = urlToFilenamePrefix(props.sourceUrl)
@@ -27,21 +37,21 @@ const devices = [
   {
     key: 'mobile' as const,
     label: 'Mobile',
-    sublabel: { screenshots: '390 × 844', mockups: 'iPhone 14 Pro' },
+    sublabel: { screenshots: `${dimensions.value.mobile.width} × ${dimensions.value.mobile.height}`, mockups: 'iPhone 14 Pro' },
     icon: '📱',
     aspectClass: 'aspect-[9/16]',
   },
   {
     key: 'tablet' as const,
     label: 'Tablet',
-    sublabel: { screenshots: '768 × 1024', mockups: 'iPad Pro' },
+    sublabel: { screenshots: `${dimensions.value.tablet.width} × ${dimensions.value.tablet.height}`, mockups: 'iPad Pro' },
     icon: '📋',
     aspectClass: 'aspect-[3/4]',
   },
   {
     key: 'desktop' as const,
     label: 'Desktop',
-    sublabel: { screenshots: '1920 × 1080', mockups: 'MacBook Pro' },
+    sublabel: { screenshots: `${dimensions.value.desktop.width} × ${dimensions.value.desktop.height}`, mockups: 'MacBook Pro' },
     icon: '🖥️',
     aspectClass: 'aspect-[16/9]',
   },

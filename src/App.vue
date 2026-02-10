@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import MockupInput from './components/MockupInput.vue'
 import MockupGrid from './components/MockupGrid.vue'
+import SettingsModal from './components/SettingsModal.vue'
 import { useGeneratorApi } from './composables/useGeneratorApi'
+import { useDeviceSettings } from './composables/useDeviceSettings'
 import type { GeneratorMode } from './composables/useGeneratorApi'
 
 const {
@@ -16,8 +19,20 @@ const {
   reset,
 } = useGeneratorApi()
 
-function handleSubmit(mode: GeneratorMode, url: string, vision: string) {
-  generate(mode, url, vision)
+const { dimensions } = useDeviceSettings()
+
+const isSettingsOpen = ref(false)
+
+function handleSubmit(mode: GeneratorMode, url: string, vision: string, deviceDimensions?: { mobile: { width: number; height: number }; tablet: { width: number; height: number }; desktop: { width: number; height: number } }) {
+  generate(mode, url, vision, deviceDimensions)
+}
+
+function openSettings() {
+  isSettingsOpen.value = true
+}
+
+function closeSettings() {
+  isSettingsOpen.value = false
 }
 </script>
 
@@ -70,6 +85,7 @@ function handleSubmit(mode: GeneratorMode, url: string, vision: string) {
             :loading-message="loadingMessage"
             :elapsed-seconds="elapsedSeconds"
             @submit="handleSubmit"
+            @open-settings="openSettings"
           />
         </div>
 
@@ -113,7 +129,7 @@ function handleSubmit(mode: GeneratorMode, url: string, vision: string) {
         enter-to-class="transform translate-y-0 opacity-100"
       >
         <section v-if="result" class="space-y-8">
-          <MockupGrid :images="result" :mode="activeMode" :source-url="requestedUrl" />
+          <MockupGrid :images="result" :mode="activeMode" :source-url="requestedUrl" :device-dimensions="dimensions" />
 
           <!-- Back Button -->
           <div class="flex justify-center pt-4">
@@ -144,6 +160,9 @@ function handleSubmit(mode: GeneratorMode, url: string, vision: string) {
       <footer class="mt-20 text-center text-xs text-zinc-600">
         <p>Gebaut mit Vue, Tailwind &amp; Gemini AI</p>
       </footer>
+
+      <!-- Settings Modal -->
+      <SettingsModal v-if="isSettingsOpen" @close="closeSettings" />
     </main>
   </div>
 </template>
