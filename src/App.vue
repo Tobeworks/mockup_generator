@@ -158,7 +158,7 @@ function closeSettings() {
 
       <!-- Footer -->
       <footer class="mt-20 text-center text-xs text-zinc-600">
-        <p>Gebaut mit Vue, Tailwind &amp; Gemini AI</p>
+        <p>build by Tobeworks</p>
       </footer>
 
       <!-- Settings Modal -->
