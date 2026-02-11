@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { X, ChevronRight, RefreshCw } from 'lucide-vue-next'
 import { useDeviceSettings, type DeviceDimensions, type DeviceOption } from '../composables/useDeviceSettings'
 
 const emit = defineEmits<{
@@ -108,9 +109,7 @@ function updateDimensions(newDimensions: DeviceDimensions) {
           @click="close"
           class="rounded-lg p-1.5 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
         >
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <X class="h-5 w-5" :size="20" />
         </button>
       </div>
 
@@ -135,9 +134,7 @@ function updateDimensions(newDimensions: DeviceDimensions) {
                   </option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <svg class="h-4 w-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                  </svg>
+                  <ChevronRight class="h-4 w-4 text-zinc-500 rotate-90" :size="16" />
                 </div>
               </div>
               <div v-if="currentMobileDevice" class="text-[10px] text-zinc-600">
@@ -160,9 +157,7 @@ function updateDimensions(newDimensions: DeviceDimensions) {
                   </option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <svg class="h-4 w-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                  </svg>
+                  <ChevronRight class="h-4 w-4 text-zinc-500 rotate-90" :size="16" />
                 </div>
               </div>
               <div v-if="currentTabletDevice" class="text-[10px] text-zinc-600">
@@ -185,9 +180,7 @@ function updateDimensions(newDimensions: DeviceDimensions) {
                   </option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <svg class="h-4 w-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                  </svg>
+                  <ChevronRight class="h-4 w-4 text-zinc-500 rotate-90" :size="16" />
                 </div>
               </div>
               <div v-if="currentDesktopDevice" class="text-[10px] text-zinc-600">
@@ -311,9 +304,7 @@ function updateDimensions(newDimensions: DeviceDimensions) {
           @click="handleReset"
           class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
         >
-          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.992 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182" />
-          </svg>
+          <RefreshCw class="h-4 w-4" :size="16" />
           Standardwerte
         </button>
         <div class="flex gap-3">

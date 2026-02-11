@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { Maximize2, Download } from 'lucide-vue-next'
 import type { DeviceImages, GeneratorMode } from '../composables/useGeneratorApi'
 import { urlToFilenamePrefix } from '../composables/useGeneratorApi'
 import ImageLightbox from './ImageLightbox.vue'
@@ -124,9 +125,7 @@ const currentDevice = computed(() => {
               class="rounded-md p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
               title="Vergrößern"
             >
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-              </svg>
+              <Maximize2 class="h-4 w-4" :size="16" />
             </button>
 
             <!-- Download Button -->
@@ -136,9 +135,7 @@ const currentDevice = computed(() => {
               class="rounded-md p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
               title="Herunterladen"
             >
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-              </svg>
+              <Download class="h-4 w-4" :size="16" />
             </a>
           </div>
         </div>
@@ -169,15 +166,10 @@ const currentDevice = computed(() => {
 
           <!-- Hover overlay -->
           <div class="absolute inset-3 flex items-center justify-center rounded-lg bg-black/0 transition-colors duration-200 group-hover:bg-black/20">
-            <svg
+            <Maximize2
               class="h-8 w-8 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-70"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-            </svg>
+              :size="32"
+            />
           </div>
         </div>
       </div>

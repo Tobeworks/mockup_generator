@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { AlertCircle, RefreshCw } from 'lucide-vue-next'
 import MockupInput from './components/MockupInput.vue'
 import MockupGrid from './components/MockupGrid.vue'
 import SettingsModal from './components/SettingsModal.vue'
@@ -105,19 +106,7 @@ function closeSettings() {
             class="mt-4 rounded-xl border border-red-500/20 bg-red-500/5 p-4"
           >
             <div class="flex items-start gap-3">
-              <svg
-                class="mt-0.5 h-5 w-5 shrink-0 text-red-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-                />
-              </svg>
+              <AlertCircle class="mt-0.5 h-5 w-5 shrink-0 text-red-400" :size="20" />
               <p class="text-sm text-red-300/90">{{ error }}</p>
             </div>
           </div>
@@ -139,19 +128,7 @@ function closeSettings() {
               @click="reset()"
               class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/50 px-5 py-2.5 text-sm font-medium text-zinc-400 transition-all hover:border-zinc-700 hover:text-zinc-200"
             >
-              <svg
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.992 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182"
-                />
-              </svg>
+              <RefreshCw class="h-4 w-4" :size="16" />
               Neuen Auftrag starten
             </button>
           </div>

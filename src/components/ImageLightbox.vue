@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { Download, X, ChevronLeft, ChevronRight, Loader2 } from 'lucide-vue-next'
 
 const props = defineProps<{
   src: string
@@ -89,9 +90,7 @@ watch(
               class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
               title="Herunterladen"
             >
-              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-              </svg>
+              <Download class="h-5 w-5" :size="20" />
             </a>
             <!-- Close -->
             <button
@@ -99,9 +98,7 @@ watch(
               class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
               title="Schließen (Esc)"
             >
-              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-              </svg>
+              <X class="h-5 w-5" :size="20" />
             </button>
           </div>
         </div>
@@ -112,9 +109,7 @@ watch(
           class="absolute left-3 z-10 rounded-full bg-zinc-900/70 p-2.5 text-zinc-400 transition-all hover:bg-zinc-800 hover:text-zinc-100 sm:left-6"
           title="Vorheriges (←)"
         >
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-          </svg>
+          <ChevronLeft class="h-5 w-5" :size="20" />
         </button>
 
         <button
@@ -122,9 +117,7 @@ watch(
           class="absolute right-3 z-10 rounded-full bg-zinc-900/70 p-2.5 text-zinc-400 transition-all hover:bg-zinc-800 hover:text-zinc-100 sm:right-6"
           title="Nächstes (→)"
         >
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-          </svg>
+          <ChevronRight class="h-5 w-5" :size="20" />
         </button>
 
         <!-- Image Container -->
@@ -137,10 +130,7 @@ watch(
             v-if="!imageLoaded"
             class="flex h-64 w-64 items-center justify-center"
           >
-            <svg class="h-8 w-8 animate-spin text-zinc-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-            </svg>
+            <Loader2 class="h-8 w-8 animate-spin text-zinc-500" :size="32" />
           </div>
 
           <img
