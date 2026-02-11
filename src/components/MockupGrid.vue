@@ -33,7 +33,7 @@ function onImageLoad(device: string) {
   loadedImages.value.add(device)
 }
 
-const devices = [
+const devices = computed(() => [
   {
     key: 'mobile' as const,
     label: 'Mobile',
@@ -55,7 +55,7 @@ const devices = [
     icon: '🖥️',
     aspectClass: 'aspect-[16/9]',
   },
-]
+])
 
 function openLightbox(index: number) {
   lightboxIndex.value = index
@@ -67,17 +67,17 @@ function closeLightbox() {
 
 function prevImage() {
   if (lightboxIndex.value === null) return
-  lightboxIndex.value = (lightboxIndex.value - 1 + devices.length) % devices.length
+  lightboxIndex.value = (lightboxIndex.value - 1 + devices.value.length) % devices.value.length
 }
 
 function nextImage() {
   if (lightboxIndex.value === null) return
-  lightboxIndex.value = (lightboxIndex.value + 1) % devices.length
+  lightboxIndex.value = (lightboxIndex.value + 1) % devices.value.length
 }
 
 const currentDevice = computed(() => {
   if (lightboxIndex.value === null) return null
-  return devices[lightboxIndex.value]
+  return devices.value[lightboxIndex.value]
 })
 </script>
 

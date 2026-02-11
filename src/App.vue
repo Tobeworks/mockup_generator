@@ -24,7 +24,9 @@ const { dimensions } = useDeviceSettings()
 const isSettingsOpen = ref(false)
 
 function handleSubmit(mode: GeneratorMode, url: string, vision: string, deviceDimensions?: { mobile: { width: number; height: number }; tablet: { width: number; height: number }; desktop: { width: number; height: number } }) {
-  generate(mode, url, vision, deviceDimensions)
+  // Use provided deviceDimensions or fall back to current dimensions
+  const dims = deviceDimensions || dimensions.value
+  generate(mode, url, vision, dims)
 }
 
 function openSettings() {

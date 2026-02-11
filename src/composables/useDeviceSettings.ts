@@ -19,6 +19,10 @@ export interface DeviceOption {
   height: number
 }
 
+// Singleton pattern - shared state across all instances
+let sharedDimensions: DeviceDimensions | null = null
+let sharedDeviceSelection: DeviceSelection | null = null
+
 export function useDeviceSettings() {
   const STORAGE_KEY = 'mockup_generator_device_dimensions'
   const STORAGE_DEVICE_KEY = 'mockup_generator_device_selection'
@@ -29,7 +33,8 @@ export function useDeviceSettings() {
     desktop: { width: 1920, height: 1080 },
   }
 
-  function loadFromStorage(): DeviceDimensions {
+  // Load from storage once and share across all instances
+  if (!sharedDimensions) {
     try {
       const stored = localStorage.getItem(STORAGE_KEY)
       if (stored) {
@@ -40,29 +45,28 @@ export function useDeviceSettings() {
           typeof parsed.tablet === 'object' &&
           typeof parsed.desktop === 'object'
         ) {
-          return parsed as DeviceDimensions
+          sharedDimensions = parsed as DeviceDimensions
         }
       }
     } catch (e) {
       console.error('Fehler beim Laden der Device-Settings:', e)
     }
-    return defaultDimensions
+    sharedDimensions = sharedDimensions || { ...defaultDimensions }
   }
 
-  function loadDeviceSelection(): DeviceSelection | null {
+  if (!sharedDeviceSelection) {
     try {
       const stored = localStorage.getItem(STORAGE_DEVICE_KEY)
       if (stored) {
-        return JSON.parse(stored) as DeviceSelection
+        sharedDeviceSelection = JSON.parse(stored) as DeviceSelection
       }
     } catch (e) {
       console.error('Fehler beim Laden der Device-Auswahl:', e)
     }
-    return null
   }
 
-  const dimensions = ref<DeviceDimensions>(loadFromStorage())
-  const deviceSelection = ref<DeviceSelection | null>(loadDeviceSelection())
+  const dimensions = ref<DeviceDimensions>(sharedDimensions!)
+  const deviceSelection = ref<DeviceSelection | null>(sharedDeviceSelection)
 
   const mobileDimensions = computed(() => dimensions.value.mobile)
   const tabletDimensions = computed(() => dimensions.value.tablet)
@@ -88,45 +92,51 @@ export function useDeviceSettings() {
   })
 
   function updateDimensions(newDimensions: DeviceDimensions) {
-    dimensions.value = newDimensions
+    // Update shared state
+    sharedDimensions = { ...newDimensions }
+    // Update local refs
+    dimensions.value = sharedDimensions
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newDimensions))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sharedDimensions))
     } catch (e) {
       console.error('Fehler beim Speichern der Device-Settings:', e)
     }
   }
 
   function updateMobile(width: number, height: number) {
-    dimensions.value = {
-      ...dimensions.value,
+    sharedDimensions = {
+      ...sharedDimensions!,
       mobile: { width, height },
     }
+    dimensions.value = sharedDimensions
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(dimensions.value))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sharedDimensions))
     } catch (e) {
       console.error('Fehler beim Speichern der Device-Settings:', e)
     }
   }
 
   function updateTablet(width: number, height: number) {
-    dimensions.value = {
-      ...dimensions.value,
+    sharedDimensions = {
+      ...sharedDimensions!,
       tablet: { width, height },
     }
+    dimensions.value = sharedDimensions
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(dimensions.value))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sharedDimensions))
     } catch (e) {
       console.error('Fehler beim Speichern der Device-Settings:', e)
     }
   }
 
   function updateDesktop(width: number, height: number) {
-    dimensions.value = {
-      ...dimensions.value,
+    sharedDimensions = {
+      ...sharedDimensions!,
       desktop: { width, height },
     }
+    dimensions.value = sharedDimensions
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(dimensions.value))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sharedDimensions))
     } catch (e) {
       console.error('Fehler beim Speichern der Device-Settings:', e)
     }
@@ -136,14 +146,18 @@ export function useDeviceSettings() {
     const devices = DEVICES[category]
     const device = devices.find(d => d.name === deviceName)
     if (device) {
-      dimensions.value = {
-        ...dimensions.value,
+      // Update shared state
+      sharedDimensions = {
+        ...sharedDimensions!,
         [category]: device.viewport,
       }
-      deviceSelection.value = { category, deviceName }
+      sharedDeviceSelection = { category, deviceName }
+      // Update local refs
+      dimensions.value = sharedDimensions
+      deviceSelection.value = sharedDeviceSelection
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(dimensions.value))
-        localStorage.setItem(STORAGE_DEVICE_KEY, JSON.stringify(deviceSelection.value))
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sharedDimensions))
+        localStorage.setItem(STORAGE_DEVICE_KEY, JSON.stringify(sharedDeviceSelection))
       } catch (e) {
         console.error('Fehler beim Speichern der Device-Settings:', e)
       }
@@ -151,10 +165,12 @@ export function useDeviceSettings() {
   }
 
   function resetToDefaults() {
-    dimensions.value = defaultDimensions
-    deviceSelection.value = null
+    sharedDimensions = { ...defaultDimensions }
+    sharedDeviceSelection = null
+    dimensions.value = sharedDimensions
+    deviceSelection.value = sharedDeviceSelection
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultDimensions))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sharedDimensions))
       localStorage.removeItem(STORAGE_DEVICE_KEY)
     } catch (e) {
       console.error('Fehler beim Zurücksetzen der Device-Settings:', e)
