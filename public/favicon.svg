@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs></defs>
+  <!-- Concept 3: Abstract brackets (crop corners) inside a circle - indicates capture/cropping -->
+  <g>
+    <!-- Primary: circle (r=20) -->
+    <circle cx="32" cy="32" r="20" fill="#000000" />
+    <!-- Four corner bracket elements (white) — minimal and aligned to 4px grid -->
+    <rect x="20" y="20" width="8" height="4" fill="#FFFFFF" />
+    <rect x="20" y="20" width="4" height="8" fill="#FFFFFF" />
+
+    <rect x="36" y="20" width="8" height="4" fill="#FFFFFF" />
+    <rect x="40" y="20" width="4" height="8" fill="#FFFFFF" />
+
+    <rect x="20" y="40" width="8" height="4" fill="#FFFFFF" />
+    <rect x="20" y="36" width="4" height="8" fill="#FFFFFF" />
+
+    <rect x="36" y="40" width="8" height="4" fill="#FFFFFF" />
+    <rect x="40" y="36" width="4" height="8" fill="#FFFFFF" />
+  </g>
+</svg>

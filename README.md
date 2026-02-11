@@ -77,7 +77,21 @@ A modern web tool for creating website screenshots and AI-generated device mocku
 - **Status messages:** Context-aware progress messages
 - **Progress bar:** Visual progress indicator
 
-### 5. Technical Details
+### 5. Favicon & Branding
+
+The app includes a custom favicon set that represents the mockup generation functionality:
+
+- **favicon.svg** - Scalable vector format with dark theme, featuring a desktop monitor with mobile device overlay and AI sparkle effects
+- **favicon.ico** - Classic ICO format (16x16 + 32x32) for legacy browser support
+- **PNG sizes:** 16x16, 32x32, 48x48, 64x64, 96x96, 128x128, 192x192, 256x256, 512x512
+- **apple-touch-icon.png** - 180x180 PNG for iOS home screen bookmarks
+
+To regenerate favicons after design changes:
+```bash
+node scripts/generate-favicons.mjs
+```
+
+### 6. Technical Details
 
 #### Frontend
 - **Framework:** Vue 3 with Composition API (`<script setup>`)
