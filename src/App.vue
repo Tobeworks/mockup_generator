@@ -7,6 +7,7 @@ import SettingsModal from './components/SettingsModal.vue'
 import { useGeneratorApi } from './composables/useGeneratorApi'
 import { useDeviceSettings } from './composables/useDeviceSettings'
 import type { GeneratorMode } from './composables/useGeneratorApi'
+import logoUrl from './assets/logo.png'
 
 const {
   isLoading,
@@ -62,6 +63,11 @@ function closeSettings() {
     <main class="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
       <!-- Header -->
       <header class="mb-12 text-center">
+        <img
+          :src="logoUrl"
+          alt="Mockup Generator Logo"
+          class="mx-auto mb-6 h-16 w-auto"
+        />
         <div
           class="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-4 py-1.5 text-xs text-zinc-400"
         >
@@ -71,7 +77,7 @@ function closeSettings() {
         <h1
           class="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl"
         >
-          Screenshot &amp; Mockup Generator
+          Screenshot & Mockup Generator
         </h1>
         <p class="mx-auto mt-3 max-w-xl text-base text-zinc-500">
           Erstelle echte Webseiten-Screenshots oder KI-generierte Device-Mockups für Mobile, Tablet und Desktop.
