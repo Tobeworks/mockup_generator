@@ -79,15 +79,15 @@ watch(
         <!-- Top Bar -->
         <div class="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-4 sm:px-6">
           <div class="flex items-center gap-3">
-            <span class="text-sm font-medium text-zinc-200">{{ label }}</span>
-            <span class="text-xs text-zinc-500">{{ sublabel }}</span>
+            <span class="text-sm font-medium text-text-primary">{{ label }}</span>
+            <span class="text-xs text-text-secondary">{{ sublabel }}</span>
           </div>
           <div class="flex items-center gap-2">
             <!-- Download -->
             <a
               :href="src"
               :download="downloadFilename"
-              class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+              class="rounded-lg p-2 text-text-secondary transition-colors hover:bg-background-secondary hover:text-text-primary"
               title="Herunterladen"
             >
               <Download class="h-5 w-5" :size="20" />
@@ -95,7 +95,7 @@ watch(
             <!-- Close -->
             <button
               @click="$emit('close')"
-              class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+              class="rounded-lg p-2 text-text-secondary transition-colors hover:bg-background-secondary hover:text-text-primary"
               title="Schließen (Esc)"
             >
               <X class="h-5 w-5" :size="20" />
@@ -106,7 +106,7 @@ watch(
         <!-- Navigation Arrows -->
         <button
           @click.stop="$emit('prev')"
-          class="absolute left-3 z-10 rounded-full bg-zinc-900/70 p-2.5 text-zinc-400 transition-all hover:bg-zinc-800 hover:text-zinc-100 sm:left-6"
+          class="absolute left-3 z-10 rounded-full bg-background-secondary p-2.5 text-text-secondary transition-all hover:bg-background-tertiary hover:text-text-primary sm:left-6"
           title="Vorheriges (←)"
         >
           <ChevronLeft class="h-5 w-5" :size="20" />
@@ -114,7 +114,7 @@ watch(
 
         <button
           @click.stop="$emit('next')"
-          class="absolute right-3 z-10 rounded-full bg-zinc-900/70 p-2.5 text-zinc-400 transition-all hover:bg-zinc-800 hover:text-zinc-100 sm:right-6"
+          class="absolute right-3 z-10 rounded-full bg-background-secondary p-2.5 text-text-secondary transition-all hover:bg-background-tertiary hover:text-text-primary sm:right-6"
           title="Nächstes (→)"
         >
           <ChevronRight class="h-5 w-5" :size="20" />
@@ -130,7 +130,7 @@ watch(
             v-if="!imageLoaded"
             class="flex h-64 w-64 items-center justify-center"
           >
-            <Loader2 class="h-8 w-8 animate-spin text-zinc-500" :size="32" />
+            <Loader2 class="h-8 w-8 animate-spin text-text-secondary" :size="32" />
           </div>
 
           <img
@@ -148,7 +148,7 @@ watch(
 
         <!-- Bottom hint -->
         <div class="absolute bottom-4 left-0 right-0 text-center">
-          <span class="text-xs text-zinc-600">
+          <span class="text-xs text-text-tertiary">
             Esc schließen · ← → navigieren · Klick zum Zoomen
           </span>
         </div>

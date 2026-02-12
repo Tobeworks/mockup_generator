@@ -86,7 +86,7 @@ const currentDevice = computed(() => {
   <div class="w-full space-y-6">
     <!-- Header -->
     <div class="flex items-center justify-between">
-      <h2 class="text-lg font-semibold text-zinc-100">
+      <h2 class="text-lg font-semibold text-text-primary">
         {{ mode === 'screenshots' ? 'Screenshots' : 'AI Mockups' }}
       </h2>
       <span
@@ -106,15 +106,15 @@ const currentDevice = computed(() => {
       <div
         v-for="(device, index) in devices"
         :key="device.key"
-        class="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/30 transition-colors duration-200 hover:border-zinc-700"
+        class="group overflow-hidden rounded-xl border border-border-primary bg-background-secondary transition-colors duration-200 hover:border-border-secondary"
       >
         <!-- Card Header -->
-        <div class="flex items-center justify-between border-b border-zinc-800/50 px-4 py-3">
+        <div class="flex items-center justify-between border-b border-border-primary px-4 py-3">
           <div class="flex items-center gap-2">
             <span class="text-sm">{{ device.icon }}</span>
             <div>
-              <span class="text-sm font-medium text-zinc-300">{{ device.label }}</span>
-              <span class="ml-2 text-xs text-zinc-600">{{ device.sublabel[mode] }}</span>
+              <span class="text-sm font-medium text-text-primary">{{ device.label }}</span>
+              <span class="ml-2 text-xs text-text-secondary">{{ device.sublabel[mode] }}</span>
             </div>
           </div>
 
@@ -122,7 +122,7 @@ const currentDevice = computed(() => {
             <!-- Expand / Lightbox Button -->
             <button
               @click="openLightbox(index)"
-              class="rounded-md p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+              class="rounded-md p-1.5 text-text-secondary transition-colors hover:bg-background-tertiary hover:text-text-primary"
               title="Vergrößern"
             >
               <Maximize2 class="h-4 w-4" :size="16" />
@@ -132,7 +132,7 @@ const currentDevice = computed(() => {
             <a
               :href="images[device.key]"
               :download="buildFilename(device.key)"
-              class="rounded-md p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+              class="rounded-md p-1.5 text-text-secondary transition-colors hover:bg-background-tertiary hover:text-text-primary"
               title="Herunterladen"
             >
               <Download class="h-4 w-4" :size="16" />
@@ -142,14 +142,14 @@ const currentDevice = computed(() => {
 
         <!-- Image Container (clickable for lightbox) -->
         <div
-          class="relative cursor-pointer bg-zinc-950 p-3 transition-opacity hover:opacity-90"
+          class="relative cursor-pointer bg-background-tertiary p-3 transition-opacity hover:opacity-90"
           @click="openLightbox(index)"
         >
           <!-- Skeleton Loader -->
           <div
             v-if="!loadedImages.has(device.key)"
             :class="device.aspectClass"
-            class="w-full animate-pulse rounded-lg bg-zinc-800/50"
+            class="w-full animate-pulse rounded-lg bg-background-secondary"
           />
 
           <!-- Actual Image -->

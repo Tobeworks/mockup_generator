@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { AlertCircle, RefreshCw } from 'lucide-vue-next'
-import MockupInput from './components/MockupInput.vue'
-import MockupGrid from './components/MockupGrid.vue'
-import SettingsModal from './components/SettingsModal.vue'
+import { ref, watch } from 'vue'
+import { Moon, Sun, RefreshCw, AlertCircle } from 'lucide-vue-next'
 import { useGeneratorApi } from './composables/useGeneratorApi'
 import { useDeviceSettings } from './composables/useDeviceSettings'
 import type { GeneratorMode } from './composables/useGeneratorApi'
 import logoUrl from './assets/logo.png'
+import MockupInput from './components/MockupInput.vue'
+import MockupGrid from './components/MockupGrid.vue'
+import SettingsModal from './components/SettingsModal.vue'
 
 const {
   isLoading,
@@ -24,6 +24,32 @@ const {
 const { dimensions } = useDeviceSettings()
 
 const isSettingsOpen = ref(false)
+const isDarkMode = ref(false)
+
+// Check system preference on mount
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  isDarkMode.value = true
+  document.documentElement.setAttribute('data-theme', 'dark')
+}
+
+// Watch for theme changes
+watch(isDarkMode, (newVal) => {
+  const theme = newVal ? 'dark' : 'light'
+  document.documentElement.setAttribute('data-theme', theme)
+  
+  // Save theme preference to localStorage
+  localStorage.setItem('theme', theme)
+})
+
+// Load saved theme preference
+const savedTheme = localStorage.getItem('theme')
+if (savedTheme) {
+  isDarkMode.value = savedTheme === 'dark'
+}
+
+function toggleTheme() {
+  isDarkMode.value = !isDarkMode.value
+}
 
 function handleSubmit(mode: GeneratorMode, url: string, vision: string, deviceDimensions?: { mobile: { width: number; height: number }; tablet: { width: number; height: number }; desktop: { width: number; height: number } }) {
   // Use provided deviceDimensions or fall back to current dimensions
@@ -41,7 +67,7 @@ function closeSettings() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-zinc-925 font-sans">
+  <div class="min-h-screen bg-background-primary font-sans">
     <!-- Subtle grid background -->
     <div
       class="pointer-events-none fixed inset-0 opacity-[0.03]"
@@ -59,6 +85,16 @@ function closeSettings() {
       "
     />
 
+    <!-- Theme Toggle Button -->
+    <button
+      @click="toggleTheme"
+      class="fixed top-6 right-6 z-50 flex items-center justify-center w-10 h-10 rounded-full border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm transition-all hover:border-zinc-700 hover:bg-zinc-800/50"
+      aria-label="Theme toggle"
+    >
+      <Moon v-if="isDarkMode" class="h-4 w-4 text-zinc-400" />
+      <Sun v-else class="h-4 w-4 text-yellow-400" />
+    </button>
+
     <!-- Main Content -->
     <main class="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
       <!-- Header -->
@@ -69,17 +105,17 @@ function closeSettings() {
           class="mx-auto mb-6 h-16 w-auto"
         />
         <div
-          class="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-4 py-1.5 text-xs text-zinc-400"
+          class="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-200 px-4 py-1.5 text-xs text-zinc-400"
         >
           <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          Selenium + Gemini AI
+           Screenshot & Mockup Generator
         </div>
         <h1
-          class="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl"
+          class="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl"
         >
-          Screenshot & Mockup Generator
+          Screeny
         </h1>
-        <p class="mx-auto mt-3 max-w-xl text-base text-zinc-500">
+        <p class="mx-auto mt-3 max-w-xl text-base text-text-secondary">
           Erstelle echte Webseiten-Screenshots oder KI-generierte Device-Mockups für Mobile, Tablet und Desktop.
         </p>
       </header>
@@ -87,7 +123,7 @@ function closeSettings() {
       <!-- Input Section -->
       <section v-if="!result" class="mx-auto max-w-lg">
         <div
-          class="rounded-2xl border border-zinc-800/50 bg-zinc-900/20 p-6 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-8"
+          class="rounded-2xl border border-border-primary bg-background-secondary p-6 shadow-2xl shadow-shadow-color backdrop-blur-sm sm:p-8"
         >
           <MockupInput
             :is-loading="isLoading"
@@ -142,7 +178,7 @@ function closeSettings() {
       </Transition>
 
       <!-- Footer -->
-      <footer class="mt-20 text-center text-xs text-zinc-600">
+      <footer class="mt-20 text-center text-xs text-text-tertiary">
         <p>build by Tobeworks</p>
       </footer>
 

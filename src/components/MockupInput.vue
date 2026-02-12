@@ -30,14 +30,14 @@ function handleSubmit() {
 <template>
   <form @submit.prevent="handleSubmit" class="w-full space-y-6">
     <!-- Mode Tabs -->
-    <div class="flex rounded-lg border border-zinc-800 bg-zinc-900/50 p-1">
+    <div class="flex rounded-lg border border-border-primary bg-background-secondary p-1">
       <button
         type="button"
         :class="[
           'flex-1 rounded-md px-4 py-2.5 text-sm font-medium transition-all duration-200',
           mode === 'screenshots'
-            ? 'bg-zinc-100 text-zinc-900 shadow-sm'
-            : 'text-zinc-400 hover:text-zinc-200',
+            ? 'bg-background-primary text-text-primary shadow-sm'
+            : 'text-text-secondary hover:text-text-primary',
         ]"
         :disabled="isLoading"
         @click="mode = 'screenshots'"
@@ -52,8 +52,8 @@ function handleSubmit() {
         :class="[
           'flex-1 rounded-md px-4 py-2.5 text-sm font-medium transition-all duration-200',
           mode === 'mockups'
-            ? 'bg-zinc-100 text-zinc-900 shadow-sm'
-            : 'text-zinc-400 hover:text-zinc-200',
+            ? 'bg-background-primary text-text-primary shadow-sm'
+            : 'text-text-secondary hover:text-text-primary',
         ]"
         :disabled="isLoading"
         @click="mode = 'mockups'"
@@ -66,12 +66,12 @@ function handleSubmit() {
     </div>
 
     <!-- Mode Description -->
-    <div class="rounded-lg bg-zinc-800/30 px-4 py-3">
-      <p v-if="mode === 'screenshots'" class="text-xs text-zinc-500">
-        <span class="font-medium text-zinc-400">Schnell (~5s)</span> — Echte Webseiten-Screenshots mit Selenium für Mobile, Tablet und Desktop.
+    <div class="rounded-lg bg-background-secondary px-4 py-3">
+      <p v-if="mode === 'screenshots'" class="text-xs text-text-secondary">
+        <span class="font-medium text-text-primary">Schnell (~5s)</span> — Echte Webseiten-Screenshots mit Selenium für Mobile, Tablet und Desktop.
       </p>
-      <p v-else class="text-xs text-zinc-500">
-        <span class="font-medium text-zinc-400">KI-generiert (~60s)</span> — Realistische Device-Mockups mit iPhone, iPad und MacBook Rahmen via Gemini AI.
+      <p v-else class="text-xs text-text-secondary">
+        <span class="font-medium text-text-primary">KI-generiert (~60s)</span> — Realistische Device-Mockups mit iPhone, iPad und MacBook Rahmen via Gemini AI.
       </p>
     </div>
 
@@ -79,19 +79,19 @@ function handleSubmit() {
     <button
       type="button"
       @click="$emit('open-settings')"
-      class="flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2 text-xs font-medium text-zinc-500 transition-all hover:bg-zinc-800 hover:text-zinc-300"
+      class="flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2 text-xs font-medium text-text-secondary transition-all hover:bg-background-secondary hover:text-text-primary"
     >
       <Settings class="h-4 w-4" :size="16" />
       Abmessungen anpassen
     </button>
     <!-- URL Input -->
     <div class="space-y-2">
-      <label for="url" class="block text-sm font-medium text-zinc-400">
+      <label for="url" class="block text-sm font-medium text-text-secondary">
         Webseite URL
       </label>
       <div class="relative">
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
-          <Globe class="h-4 w-4 text-zinc-500" :size="16" />
+          <Globe class="h-4 w-4 text-text-secondary" :size="16" />
         </div>
         <input
           id="url"
@@ -100,7 +100,7 @@ function handleSubmit() {
           required
           :disabled="isLoading"
           placeholder="https://my-startup.com"
-          class="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 py-3 pl-10 pr-4 text-sm text-zinc-100 placeholder-zinc-600 transition-colors duration-200 focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-600 disabled:opacity-50"
+          class="w-full rounded-lg border border-border-primary bg-background-secondary py-3 pl-10 pr-4 text-sm text-text-primary placeholder-text-secondary transition-colors duration-200 focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary disabled:opacity-50"
         />
       </div>
     </div>
@@ -115,9 +115,9 @@ function handleSubmit() {
       leave-to-class="opacity-0 -translate-y-1"
     >
       <div v-if="mode === 'mockups'" class="space-y-2">
-        <label for="vision" class="block text-sm font-medium text-zinc-400">
+        <label for="vision" class="block text-sm font-medium text-text-secondary">
           Deine Vision
-          <span class="ml-1 text-xs font-normal text-zinc-600">optional</span>
+          <span class="ml-1 text-xs font-normal text-text-tertiary">optional</span>
         </label>
         <textarea
           id="vision"
@@ -125,7 +125,7 @@ function handleSubmit() {
           :disabled="isLoading"
           rows="3"
           placeholder="Minimalistisches Design mit blauen Akzenten, klare Typografie..."
-          class="w-full resize-none rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 transition-colors duration-200 focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-600 disabled:opacity-50"
+          class="w-full resize-none rounded-lg border border-border-primary bg-background-secondary px-4 py-3 text-sm text-text-primary placeholder-text-secondary transition-colors duration-200 focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary disabled:opacity-50"
         />
       </div>
     </Transition>
@@ -137,7 +137,7 @@ function handleSubmit() {
       class="group relative w-full cursor-pointer rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40"
       :class="[
         mode === 'screenshots'
-          ? 'bg-zinc-100 text-zinc-900 hover:bg-white'
+          ? 'bg-background-primary text-text-primary hover:bg-background-secondary'
           : 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-500 hover:to-indigo-500',
       ]"
     >
@@ -151,7 +151,7 @@ function handleSubmit() {
 
       <!-- Loading Spinner -->
       <span v-if="isLoading" class="absolute inset-0 flex items-center justify-center">
-        <Loader2 class="h-5 w-5 animate-spin" :class="mode === 'screenshots' ? 'text-zinc-900' : 'text-white'" :size="20" />
+        <Loader2 class="h-5 w-5 animate-spin" :class="mode === 'screenshots' ? 'text-text-primary' : 'text-white'" :size="20" />
       </span>
     </button>
 
@@ -159,14 +159,14 @@ function handleSubmit() {
 
     <!-- Loading Status -->
     <div v-if="isLoading" class="space-y-3">
-      <p class="text-center text-xs text-zinc-500 animate-pulse">
+      <p class="text-center text-xs text-text-secondary animate-pulse">
         {{ loadingMessage }}
       </p>
       <!-- Progress bar -->
-      <div class="h-1 overflow-hidden rounded-full bg-zinc-800">
+      <div class="h-1 overflow-hidden rounded-full bg-background-secondary">
         <div
           class="h-full rounded-full transition-all duration-1000 ease-linear"
-          :class="mode === 'screenshots' ? 'bg-zinc-400' : 'bg-violet-500'"
+          :class="mode === 'screenshots' ? 'bg-text-secondary' : 'bg-violet-500'"
           :style="{
             width: mode === 'screenshots'
               ? `${Math.min(95, elapsedSeconds * 15)}%`

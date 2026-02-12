@@ -100,14 +100,14 @@ function updateDimensions(newDimensions: DeviceDimensions) {
 
     <!-- Modal -->
     <div
-      class="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 shadow-2xl"
+      class="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-border-primary bg-background-secondary shadow-2xl"
     >
       <!-- Header -->
-      <div class="flex items-center justify-between border-b border-zinc-800 px-6 py-4">
-        <h2 class="text-lg font-semibold text-zinc-100">Device Abmessungen</h2>
+      <div class="flex items-center justify-between border-b border-border-primary px-6 py-4">
+        <h2 class="text-lg font-semibold text-text-primary">Device Abmessungen</h2>
         <button
           @click="close"
-          class="rounded-lg p-1.5 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+          class="rounded-lg p-1.5 text-text-secondary hover:bg-background-secondary hover:text-text-primary"
         >
           <X class="h-5 w-5" :size="20" />
         </button>
@@ -116,17 +116,17 @@ function updateDimensions(newDimensions: DeviceDimensions) {
       <!-- Content -->
       <div class="space-y-6 px-6 py-6">
         <!-- Device Selection -->
-        <div class="space-y-3 rounded-xl border border-zinc-800 bg-zinc-950/50 p-4">
-          <h3 class="text-sm font-medium text-zinc-200">Gerät auswählen</h3>
+        <div class="space-y-3 rounded-xl border border-border-primary bg-background-tertiary p-4">
+          <h3 class="text-sm font-medium text-text-primary">Gerät auswählen</h3>
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <!-- Mobile -->
             <div class="space-y-1.5">
-              <label class="text-xs font-medium text-zinc-500">Mobile</label>
+              <label class="text-xs font-medium text-text-secondary">Mobile</label>
               <div class="relative">
                 <select
                   :value="currentMobileDevice?.name || ''"
                   @change="handleMobileChange"
-                  class="w-full appearance-none rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-600"
+                  class="w-full appearance-none rounded-lg border border-border-primary bg-background-secondary px-3 py-2 text-sm text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                 >
                   <option value="" disabled>Wähle ein Gerät...</option>
                   <option v-for="device in deviceOptions.filter(d => d.category === 'mobile')" :key="device.name" :value="device.name">
@@ -134,22 +134,22 @@ function updateDimensions(newDimensions: DeviceDimensions) {
                   </option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <ChevronRight class="h-4 w-4 text-zinc-500 rotate-90" :size="16" />
+                  <ChevronRight class="h-4 w-4 text-text-secondary rotate-90" :size="16" />
                 </div>
               </div>
-              <div v-if="currentMobileDevice" class="text-[10px] text-zinc-600">
+              <div v-if="currentMobileDevice" class="text-[10px] text-text-tertiary">
                 {{ currentMobileDevice.width }} × {{ currentMobileDevice.height }}
               </div>
             </div>
 
             <!-- Tablet -->
             <div class="space-y-1.5">
-              <label class="text-xs font-medium text-zinc-500">Tablet</label>
+              <label class="text-xs font-medium text-text-secondary">Tablet</label>
               <div class="relative">
                 <select
                   :value="currentTabletDevice?.name || ''"
                   @change="handleTabletChange"
-                  class="w-full appearance-none rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-600"
+                  class="w-full appearance-none rounded-lg border border-border-primary bg-background-secondary px-3 py-2 text-sm text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                 >
                   <option value="" disabled>Wähle ein Gerät...</option>
                   <option v-for="device in deviceOptions.filter(d => d.category === 'tablet')" :key="device.name" :value="device.name">
@@ -157,22 +157,22 @@ function updateDimensions(newDimensions: DeviceDimensions) {
                   </option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <ChevronRight class="h-4 w-4 text-zinc-500 rotate-90" :size="16" />
+                  <ChevronRight class="h-4 w-4 text-text-secondary rotate-90" :size="16" />
                 </div>
               </div>
-              <div v-if="currentTabletDevice" class="text-[10px] text-zinc-600">
+              <div v-if="currentTabletDevice" class="text-[10px] text-text-tertiary">
                 {{ currentTabletDevice.width }} × {{ currentTabletDevice.height }}
               </div>
             </div>
 
             <!-- Desktop -->
             <div class="space-y-1.5">
-              <label class="text-xs font-medium text-zinc-500">Desktop</label>
+              <label class="text-xs font-medium text-text-secondary">Desktop</label>
               <div class="relative">
                 <select
                   :value="currentDesktopDevice?.name || ''"
                   @change="handleDesktopChange"
-                  class="w-full appearance-none rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 focus:border-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-600"
+                  class="w-full appearance-none rounded-lg border border-border-primary bg-background-secondary px-3 py-2 text-sm text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                 >
                   <option value="" disabled>Wähle ein Gerät...</option>
                   <option v-for="device in deviceOptions.filter(d => d.category === 'desktop')" :key="device.name" :value="device.name">
@@ -180,10 +180,10 @@ function updateDimensions(newDimensions: DeviceDimensions) {
                   </option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  <ChevronRight class="h-4 w-4 text-zinc-500 rotate-90" :size="16" />
+                  <ChevronRight class="h-4 w-4 text-text-secondary rotate-90" :size="16" />
                 </div>
               </div>
-              <div v-if="currentDesktopDevice" class="text-[10px] text-zinc-600">
+              <div v-if="currentDesktopDevice" class="text-[10px] text-text-tertiary">
                 {{ currentDesktopDevice.width }} × {{ currentDesktopDevice.height }}
               </div>
             </div>
@@ -191,97 +191,97 @@ function updateDimensions(newDimensions: DeviceDimensions) {
         </div>
 
         <!-- Custom Dimensions (Advanced) -->
-        <div class="space-y-3 rounded-xl border border-zinc-800 bg-zinc-950/50 p-4">
+        <div class="space-y-3 rounded-xl border border-border-primary bg-background-tertiary p-4">
           <div class="flex items-center gap-2">
             <span class="text-xl">📏</span>
-            <h3 class="text-sm font-medium text-zinc-200">Benutzerdefinierte Abmessungen</h3>
+            <h3 class="text-sm font-medium text-text-primary">Benutzerdefinierte Abmessungen</h3>
           </div>
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <!-- Mobile -->
-            <div class="space-y-2 rounded-lg border border-zinc-800 bg-zinc-900/30 p-3">
+            <div class="space-y-2 rounded-lg border border-border-primary bg-background-secondary p-3">
               <div class="flex items-center gap-2">
                 <span class="text-sm">📱</span>
-                <label class="text-xs font-medium text-zinc-400">Mobile</label>
+                <label class="text-xs font-medium text-text-secondary">Mobile</label>
               </div>
               <div class="grid grid-cols-2 gap-2">
                 <div class="space-y-1">
-                  <label class="text-[10px] font-medium text-zinc-500">Breite</label>
+                  <label class="text-[10px] font-medium text-text-secondary">Breite</label>
                   <input
                     v-model.number="tempDimensions.mobile.width"
                     type="number"
                     min="320"
                     max="2000"
-                    class="w-full rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                    class="w-full rounded-md border border-border-primary bg-background-tertiary px-2 py-1.5 text-xs text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                   />
                 </div>
                 <div class="space-y-1">
-                  <label class="text-[10px] font-medium text-zinc-500">Höhe</label>
+                  <label class="text-[10px] font-medium text-text-secondary">Höhe</label>
                   <input
                     v-model.number="tempDimensions.mobile.height"
                     type="number"
                     min="200"
                     max="3000"
-                    class="w-full rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                    class="w-full rounded-md border border-border-primary bg-background-tertiary px-2 py-1.5 text-xs text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                   />
                 </div>
               </div>
             </div>
 
             <!-- Tablet -->
-            <div class="space-y-2 rounded-lg border border-zinc-800 bg-zinc-900/30 p-3">
+            <div class="space-y-2 rounded-lg border border-border-primary bg-background-secondary p-3">
               <div class="flex items-center gap-2">
                 <span class="text-sm">📋</span>
-                <label class="text-xs font-medium text-zinc-400">Tablet</label>
+                <label class="text-xs font-medium text-text-secondary">Tablet</label>
               </div>
               <div class="grid grid-cols-2 gap-2">
                 <div class="space-y-1">
-                  <label class="text-[10px] font-medium text-zinc-500">Breite</label>
+                  <label class="text-[10px] font-medium text-text-secondary">Breite</label>
                   <input
                     v-model.number="tempDimensions.tablet.width"
                     type="number"
                     min="600"
                     max="2000"
-                    class="w-full rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                    class="w-full rounded-md border border-border-primary bg-background-tertiary px-2 py-1.5 text-xs text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                   />
                 </div>
                 <div class="space-y-1">
-                  <label class="text-[10px] font-medium text-zinc-500">Höhe</label>
+                  <label class="text-[10px] font-medium text-text-secondary">Höhe</label>
                   <input
                     v-model.number="tempDimensions.tablet.height"
                     type="number"
                     min="400"
                     max="3000"
-                    class="w-full rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                    class="w-full rounded-md border border-border-primary bg-background-tertiary px-2 py-1.5 text-xs text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                   />
                 </div>
               </div>
             </div>
 
             <!-- Desktop -->
-            <div class="space-y-2 rounded-lg border border-zinc-800 bg-zinc-900/30 p-3">
+            <div class="space-y-2 rounded-lg border border-border-primary bg-background-secondary p-3">
               <div class="flex items-center gap-2">
                 <span class="text-sm">🖥️</span>
-                <label class="text-xs font-medium text-zinc-400">Desktop</label>
+                <label class="text-xs font-medium text-text-secondary">Desktop</label>
               </div>
               <div class="grid grid-cols-2 gap-2">
                 <div class="space-y-1">
-                  <label class="text-[10px] font-medium text-zinc-500">Breite</label>
+                  <label class="text-[10px] font-medium text-text-secondary">Breite</label>
                   <input
                     v-model.number="tempDimensions.desktop.width"
                     type="number"
                     min="1024"
                     max="4000"
-                    class="w-full rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                    class="w-full rounded-md border border-border-primary bg-background-tertiary px-2 py-1.5 text-xs text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                   />
                 </div>
                 <div class="space-y-1">
-                  <label class="text-[10px] font-medium text-zinc-500">Höhe</label>
+                  <label class="text-[10px] font-medium text-text-secondary">Höhe</label>
                   <input
                     v-model.number="tempDimensions.desktop.height"
                     type="number"
                     min="600"
                     max="3000"
-                    class="w-full rounded-md border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-100 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                    class="w-full rounded-md border border-border-primary bg-background-tertiary px-2 py-1.5 text-xs text-text-primary focus:border-border-secondary focus:outline-none focus:ring-1 focus:ring-border-secondary"
                   />
                 </div>
               </div>
@@ -290,8 +290,8 @@ function updateDimensions(newDimensions: DeviceDimensions) {
         </div>
 
         <!-- Current Values Display -->
-        <div class="rounded-lg bg-zinc-800/30 px-4 py-3">
-          <p class="text-xs text-zinc-500">
+        <div class="rounded-lg bg-background-secondary px-4 py-3">
+          <p class="text-xs text-text-secondary">
             Aktuelle Werte im LocalStorage gespeichert und werden für zukünftige Generierungen
             verwendet.
           </p>
@@ -299,10 +299,10 @@ function updateDimensions(newDimensions: DeviceDimensions) {
       </div>
 
       <!-- Footer -->
-      <div class="flex items-center justify-between border-t border-zinc-800 px-6 py-4">
+      <div class="flex items-center justify-between border-t border-border-primary px-6 py-4">
         <button
           @click="handleReset"
-          class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+          class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-text-secondary hover:bg-background-secondary hover:text-text-primary"
         >
           <RefreshCw class="h-4 w-4" :size="16" />
           Standardwerte
@@ -310,13 +310,13 @@ function updateDimensions(newDimensions: DeviceDimensions) {
         <div class="flex gap-3">
           <button
             @click="close"
-            class="rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+            class="rounded-lg px-4 py-2 text-sm font-medium text-text-secondary hover:bg-background-secondary hover:text-text-primary"
           >
             Abbrechen
           </button>
           <button
             @click="handleSave"
-            class="rounded-lg bg-zinc-100 px-5 py-2 text-sm font-semibold text-zinc-900 hover:bg-white"
+            class="rounded-lg bg-background-primary px-5 py-2 text-sm font-semibold text-text-primary hover:bg-background-secondary"
           >
             Speichern
           </button>
